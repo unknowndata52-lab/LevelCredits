@@ -1,0 +1,8 @@
+{
+  "id": "example.levelcredits",
+  "name": "Level Credits",
+  "version": "1.0.0",
+  "developer": "Example",
+  "description": "Adds a Credits button to Geometry Dash levels.",
+  "geode": ">=2.0.0"
+}
