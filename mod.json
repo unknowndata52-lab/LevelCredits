@@ -1,8 +1,14 @@
 {
-  "id": "example.levelcredits",
-  "name": "Level Credits",
-  "version": "1.0.0",
-  "developer": "Example",
-  "description": "Adds a Credits button to Geometry Dash levels.",
-  "geode": ">=2.0.0"
+	"geode": "4.10.0",
+	"gd": {	
+        "win": "2.2074",
+        "mac": "2.2074",
+        "android": "2.2074",
+        "ios": "2.2074"
+	},
+	"version": "v1.0.1",
+	"id": "Artyxlrs.LevelCredits",
+	"name": "Level Credits",
+	"developer": "Artyxlr",
+	"description": "Testing really"
 }
