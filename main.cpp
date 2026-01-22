@@ -1,6 +1,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/LevelInfoLayer.hpp>
 #include <Geode/ui/Popup.hpp>
+#include <Geode/ui/Custom/UIButton.hpp>
 
 using namespace geode::prelude;
 
@@ -39,26 +40,23 @@ class $modify(LevelInfoCredits, LevelInfoLayer) {
         menu->setPosition({0, 0});
         this->addChild(menu);
 
-        auto sprite = ButtonSprite::create(
-            "Credits", 40, true,
-            "goldFont.fnt", "GJ_button_01.png", 30.f, 0.6f
-        );
+        // Use label as button
+        auto label = CCLabelBMFont::create("Credits", "goldFont.fnt");
+        label->setScale(0.6f);
+        auto button = CCMenuItemLabelExtra::create(label, [this](CCObject*) {
+            this->onCredits(nullptr);
+        });
 
-        auto button = CCMenuItemSpriteExtra::create(
-            sprite, this,
-            menu_selector(LevelInfoCredits::onCredits)
-        );
-
-        auto win = CCDirector::sharedDirector()->getWinSize();
+        auto win = this->getContentSize();
         button->setPosition({win.width - 45.f, 45.f});
-
         menu->addChild(button);
+
         return true;
     }
 
     void onCredits(CCObject*) {
         auto level = m_level;
-        std::string key = "credits_" + std::to_string(level->m_levelID.value());
+        std::string key = "credits_" + std::to_string(level->levelID());
 
         auto credits = Mod::get()->getSavedValue<std::string>(
             key,
