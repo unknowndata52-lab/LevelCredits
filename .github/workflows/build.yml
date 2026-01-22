@@ -3,29 +3,43 @@ name: Build Geode Mod
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
-        os: [windows-latest, macos-latest, ubuntu-latest]
+        config:
+        - name: Windows
+          os: windows-latest
+        - name: macOS
+          os: macos-latest
+        - name: Android
+          os: ubuntu-latest
+          target: Android
+        - name: iOS
+          os: macos-latest
+          target: iOS
 
-    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Install Geode CLI
-      run: |
-        curl -fsSL https://geode-sdk.github.io/install.sh | bash
+      - name: Build Mod
+        uses: geode-sdk/build-geode-mod@main
+        with:
+          # This action handles CLI install and PATH automatically
+          bindings: geode-sdk/bindings
+          combine: true
+          target: ${{ matrix.config.target }}
 
-    - name: Build Mod
-      run: |
-        geode build
-
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: geode-${{ matrix.os }}
-        path: build/*.geode
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: geode-build-${{ matrix.config.name }}
+          path: build/*.geode
