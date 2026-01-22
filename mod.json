@@ -1,14 +1,19 @@
 {
 	"geode": "4.10.0",
 	"gd": {	
-        "win": "2.2074",
-        "mac": "2.2074",
-        "android": "2.2074",
-        "ios": "2.2074"
+		"win": "2.2074",
+		"mac": "2.2074",
+		"android": "2.2074",
+		"ios": "2.2074"
 	},
 	"version": "v1.0.1",
 	"id": "Artyxlrs.LevelCredits",
 	"name": "Level Credits",
 	"developer": "Artyxlr",
-	"description": "Testing really"
+	"description": "Adds a custom credits popup with edit support for creators.",
+	"resources": {
+		"files": [
+			"goldFont.fnt"
+		]
+	}
 }
